@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SharedViewModel(
+class SharedViewModel @Inject constructor(
     private val getAlbumsUseCase: GetAlbumsUseCase,
     private val getPhotosUseCase: GetPhotosUseCase
 ) : ViewModel() {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,12 @@ import com.example.photoalbumapp.domain.model.Album
 import com.example.photoalbumapp.presentation.SharedViewModel
 import com.example.photoalbumapp.presentation.SharedViewModelFactory
 import com.example.photoalbumapp.utils.AlbumUtils
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: SharedViewModelFactory
 
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var albumsRecyclerAdapter: AlbumsAdapter
@@ -25,6 +30,10 @@ class MainActivity : AppCompatActivity() {
     private var dataFetched: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val component = (application as MyApplication).appComponent
+
+        component.inject(this)
+
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState != null) {
@@ -57,8 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         sharedViewModel = ViewModelProviders.of(
-            this,
-            SharedViewModelFactory()
+            this, viewModelFactory
         ).get(SharedViewModel::class.java)
     }
 

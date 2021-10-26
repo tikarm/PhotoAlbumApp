@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PhotoAlbumApp</string>
+    <string name="failed_to_get_albums_message">Failed to get albums</string>
+</resources>
